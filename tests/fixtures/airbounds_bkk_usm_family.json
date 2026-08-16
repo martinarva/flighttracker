@@ -1,0 +1,1982 @@
+{
+  "_meta": {
+    "source": "digital.bangkokair.com  POST /v2/search/air-bounds  (Amadeus DX 'pg-booking')",
+    "captured": "2026-08-14 live; travel 2027-02-23 out / 2027-03-06 return; 2 ADT + 2 CHD",
+    "note": "Real values. Early cheap flights + midday convenient flights, so cheapest (06:00, ~279 EUR) and convenient-window (10:15+, ~398 EUR) differ. PG106 has no PGPROMO bucket (cheapest = PGSAVER)."
+  },
+  "outbound": [
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 4200,
+        "segments": [
+          {
+            "flightId": "SEG-PG101-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "101",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T06:00:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T07:10:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4200
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-R",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": true,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "RNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "RNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG101-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "R",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 2680,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 2680,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 10720,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG101-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4430,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3370,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15600,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGFREEDOM-K",
+          "fareFamilyCode": "PGFREEDOM",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "KWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "KWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG101-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "K",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 5080,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3855,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 17870,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGBLUE-D",
+          "fareFamilyCode": "PGBLUE",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "DWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "DWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG101-BKKUSM-2027-02-23",
+              "cabin": "business",
+              "bookingClass": "D",
+              "statusCode": "HK",
+              "quota": 4
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 6230,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4720,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 21900,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 4200,
+        "segments": [
+          {
+            "flightId": "SEG-PG117-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "117",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T06:45:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T07:55:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4200
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-V",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG117-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "V",
+              "statusCode": "HK",
+              "quota": 8
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15320,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 4200,
+        "segments": [
+          {
+            "flightId": "SEG-PG125-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "125",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T07:00:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T08:10:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4200
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-V",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG125-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "V",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15320,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 5700,
+        "segments": [
+          {
+            "flightId": "SEG-PG129-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "129",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T10:15:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T11:50:00.000"
+              },
+              "aircraftCode": "ATR",
+              "duration": 5700
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-V",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG129-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "V",
+              "statusCode": "HK",
+              "quota": 4
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15320,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG129-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4430,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3370,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15600,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 4200,
+        "segments": [
+          {
+            "flightId": "SEG-PG133-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "133",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T11:25:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T12:35:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4200
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG133-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4430,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3370,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15600,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 4200,
+        "segments": [
+          {
+            "flightId": "SEG-PG145-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "145",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T13:45:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T14:55:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4200
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG145-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4430,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3370,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15600,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 4200,
+        "segments": [
+          {
+            "flightId": "SEG-PG167-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "167",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T14:50:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T16:00:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4200
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-V",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG167-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "V",
+              "statusCode": "HK",
+              "quota": 4
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3830,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15320,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "BKK",
+        "destinationLocationCode": "USM",
+        "duration": 4200,
+        "segments": [
+          {
+            "flightId": "SEG-PG191-BKKUSM-2027-02-23",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "191",
+              "departure": {
+                "locationCode": "BKK",
+                "dateTime": "2027-02-23T19:15:00.000"
+              },
+              "arrival": {
+                "locationCode": "USM",
+                "dateTime": "2027-02-23T20:25:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4200
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-G",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "GNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "GNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG191-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "G",
+              "statusCode": "HK",
+              "quota": 4
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 3480,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3480,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 13920,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG191-BKKUSM-2027-02-23",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4430,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3370,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 15600,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "inbound": [
+    {
+      "boundDetails": {
+        "originLocationCode": "USM",
+        "destinationLocationCode": "BKK",
+        "duration": 4500,
+        "segments": [
+          {
+            "flightId": "SEG-PG102-USMBKK-2027-03-06",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "102",
+              "departure": {
+                "locationCode": "USM",
+                "dateTime": "2027-03-06T07:00:00.000"
+              },
+              "arrival": {
+                "locationCode": "BKK",
+                "dateTime": "2027-03-06T08:15:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4500
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-R",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": true,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "RNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "RNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG102-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "R",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 2850,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 2850,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 11400,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG102-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4600,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3540,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 16280,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGFREEDOM-K",
+          "fareFamilyCode": "PGFREEDOM",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "KWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "KWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG102-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "K",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 5250,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4025,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 18550,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGBLUE-D",
+          "fareFamilyCode": "PGBLUE",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "DWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "DWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG102-USMBKK-2027-03-06",
+              "cabin": "business",
+              "bookingClass": "D",
+              "statusCode": "HK",
+              "quota": 4
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 6400,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4890,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 22580,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "USM",
+        "destinationLocationCode": "BKK",
+        "duration": 4500,
+        "segments": [
+          {
+            "flightId": "SEG-PG104-USMBKK-2027-03-06",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "104",
+              "departure": {
+                "locationCode": "USM",
+                "dateTime": "2027-03-06T07:55:00.000"
+              },
+              "arrival": {
+                "locationCode": "BKK",
+                "dateTime": "2027-03-06T09:10:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4500
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGPROMO-V",
+          "fareFamilyCode": "PGPROMO",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "VNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG104-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "V",
+              "statusCode": "HK",
+              "quota": 8
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4000,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4000,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 16000,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "USM",
+        "destinationLocationCode": "BKK",
+        "duration": 4500,
+        "segments": [
+          {
+            "flightId": "SEG-PG106-USMBKK-2027-03-06",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "106",
+              "departure": {
+                "locationCode": "USM",
+                "dateTime": "2027-03-06T08:30:00.000"
+              },
+              "arrival": {
+                "locationCode": "BKK",
+                "dateTime": "2027-03-06T09:45:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4500
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": true,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG106-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 8
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4600,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3540,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 16280,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        },
+        {
+          "airBoundId": "OFR-PGFREEDOM-K",
+          "fareFamilyCode": "PGFREEDOM",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "KWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "KWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG106-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "K",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 5250,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4025,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 18550,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "USM",
+        "destinationLocationCode": "BKK",
+        "duration": 4500,
+        "segments": [
+          {
+            "flightId": "SEG-PG124-USMBKK-2027-03-06",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "124",
+              "departure": {
+                "locationCode": "USM",
+                "dateTime": "2027-03-06T10:00:00.000"
+              },
+              "arrival": {
+                "locationCode": "BKK",
+                "dateTime": "2027-03-06T11:15:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4500
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGSAVER-T",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "TNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "TNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG124-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "T",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4750,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4000,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 17500,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "USM",
+        "destinationLocationCode": "BKK",
+        "duration": 4500,
+        "segments": [
+          {
+            "flightId": "SEG-PG136-USMBKK-2027-03-06",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "136",
+              "departure": {
+                "locationCode": "USM",
+                "dateTime": "2027-03-06T13:45:00.000"
+              },
+              "arrival": {
+                "locationCode": "BKK",
+                "dateTime": "2027-03-06T15:00:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4500
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGSAVER-H",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "HNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG136-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "H",
+              "statusCode": "HK",
+              "quota": 4
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4600,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 3540,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 16280,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "USM",
+        "destinationLocationCode": "BKK",
+        "duration": 4500,
+        "segments": [
+          {
+            "flightId": "SEG-PG144-USMBKK-2027-03-06",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "144",
+              "departure": {
+                "locationCode": "USM",
+                "dateTime": "2027-03-06T14:05:00.000"
+              },
+              "arrival": {
+                "locationCode": "BKK",
+                "dateTime": "2027-03-06T15:20:00.000"
+              },
+              "aircraftCode": "319",
+              "duration": 4500
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGSAVER-T",
+          "fareFamilyCode": "PGSAVER",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "TNWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "TNWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG144-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "T",
+              "statusCode": "HK",
+              "quota": 4
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 4750,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4000,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 17500,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "boundDetails": {
+        "originLocationCode": "USM",
+        "destinationLocationCode": "BKK",
+        "duration": 5700,
+        "segments": [
+          {
+            "flightId": "SEG-PG138-USMBKK-2027-03-06",
+            "flight": {
+              "marketingAirlineCode": "PG",
+              "operatingAirlineCode": "PG",
+              "marketingFlightNumber": "138",
+              "departure": {
+                "locationCode": "USM",
+                "dateTime": "2027-03-06T14:30:00.000"
+              },
+              "arrival": {
+                "locationCode": "BKK",
+                "dateTime": "2027-03-06T16:05:00.000"
+              },
+              "aircraftCode": "ATR",
+              "duration": 5700
+            }
+          }
+        ]
+      },
+      "airBounds": [
+        {
+          "airBoundId": "OFR-PGFREEDOM-M",
+          "fareFamilyCode": "PGFREEDOM",
+          "isCheapestOffer": false,
+          "fareInfos": [
+            {
+              "fareType": "unifares",
+              "fareClass": "MWW",
+              "pricedPassengerTypeCodes": [
+                "ADT"
+              ],
+              "travelerIds": [
+                "ADT-1",
+                "ADT-2"
+              ]
+            },
+            {
+              "fareType": "unifares",
+              "fareClass": "MWW",
+              "pricedPassengerTypeCodes": [
+                "CH"
+              ],
+              "travelerIds": [
+                "CHD-3",
+                "CHD-4"
+              ]
+            }
+          ],
+          "availabilityDetails": [
+            {
+              "flightId": "SEG-PG138-USMBKK-2027-03-06",
+              "cabin": "eco",
+              "bookingClass": "M",
+              "statusCode": "HK",
+              "quota": 9
+            }
+          ],
+          "prices": {
+            "unitPrices": [
+              {
+                "travelerIds": [
+                  "ADT-1",
+                  "ADT-2"
+                ],
+                "total": 5250,
+                "currencyCode": "THB"
+              },
+              {
+                "travelerIds": [
+                  "CHD-3",
+                  "CHD-4"
+                ],
+                "total": 4375,
+                "currencyCode": "THB"
+              }
+            ],
+            "totalPrices": [
+              {
+                "total": 19250,
+                "currencyCode": "THB"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

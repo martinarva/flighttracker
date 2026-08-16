@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="et">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>flightwatcher</title>
+<style>
+  :root{
+    --bg:#0f1720; --card:#17212b; --sub:#0f1a24; --line:#26323f; --fg:#e6edf3; --muted:#8aa0b3;
+    --good:#3fb950; --warn:#d29922; --bad:#f85149; --accent:#58a6ff;
+  }
+  @media (prefers-color-scheme:light){
+    :root{--bg:#f4f6f8;--card:#fff;--sub:#f7f9fb;--line:#e2e8f0;--fg:#1a2530;--muted:#5b6b7a;}
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+  header{display:flex;align-items:center;justify-content:space-between;
+    padding:16px 20px;border-bottom:1px solid var(--line);position:sticky;top:0;
+    background:var(--bg);flex-wrap:wrap;gap:8px;z-index:2}
+  h1{font-size:18px;margin:0;font-weight:650}
+  h1 small{color:var(--muted);font-weight:400}
+  .wrap{max-width:1040px;margin:0 auto;padding:20px}
+  button{background:var(--accent);color:#04121f;border:0;border-radius:8px;
+    padding:9px 14px;font-weight:600;cursor:pointer;font-size:14px}
+  button:disabled{opacity:.5;cursor:default}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:20px;margin-bottom:20px}
+  .rt{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .rt h2{font-size:18px;margin:0}
+  .badge{font-size:12px;padding:3px 9px;border-radius:999px;font-weight:600}
+  .b-ok{background:rgba(63,185,80,.16);color:var(--good)}
+  .b-err{background:rgba(248,81,73,.16);color:var(--bad)}
+  .b-warn{background:rgba(210,153,34,.16);color:var(--warn)}
+  .total{display:flex;gap:26px;flex-wrap:wrap;margin:16px 0 4px}
+  .total .big{font-size:34px;font-weight:800;line-height:1}
+  .total .lbl{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  .total .sub{color:var(--muted);font-size:13px;margin-top:4px}
+  .legs{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:14px}
+  .leg{background:var(--sub);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+  .leg h3{margin:0 0 10px;font-size:15px;display:flex;justify-content:space-between;align-items:center}
+  .row{display:flex;justify-content:space-between;align-items:baseline;margin:7px 0}
+  .row .k{color:var(--muted);font-size:13px}
+  .row .v{font-weight:700}
+  .row .v small{color:var(--muted);font-weight:400}
+  .none{color:var(--muted);font-style:italic;font-size:13px}
+  .down{color:var(--good)} .up{color:var(--bad)}
+  svg text{fill:var(--muted);font-size:9px}
+  .muted{color:var(--muted)}
+  #tip{position:fixed;z-index:10;pointer-events:none;background:var(--fg);color:var(--bg);
+    font-size:12px;font-weight:600;padding:5px 9px;border-radius:7px;opacity:0;
+    transition:opacity .08s;white-space:nowrap;transform:translate(-50%,-140%)}
+</style>
+</head>
+<body>
+<header>
+  <h1>✈️ flightwatcher <small>Bangkok Airways</small></h1>
+  <div>
+    <span id="scraper" class="badge"></span>
+    <button id="refresh">Värskenda kohe</button>
+  </div>
+</header>
+<div class="wrap" id="trips"></div>
+<div id="tip"></div>
+
+<script>
+// Floating tooltip: any element with data-tip shows it near the cursor.
+const tip = document.getElementById("tip");
+document.addEventListener("pointermove", e=>{
+  const t = e.target.closest ? e.target.closest("[data-tip]") : null;
+  if(t){ tip.textContent = t.getAttribute("data-tip");
+    tip.style.left = e.clientX+"px"; tip.style.top = e.clientY+"px"; tip.style.opacity = "1"; }
+  else { tip.style.opacity = "0"; }
+}, true);
+const EUR = v => v==null ? "–" : new Intl.NumberFormat("et-EE",{maximumFractionDigits:0}).format(v)+" €";
+const THB = v => v==null ? "" : new Intl.NumberFormat("et-EE").format(v)+" THB";
+const j = async (u,o) => (await fetch(u,o)).json();
+
+// Multi-series line chart. series = [{name,color,points:[{t:Date,v:number|null}]}].
+function chart(series, h){
+  const pts = series.flatMap(s=>s.points.filter(p=>p.v!=null));
+  if(pts.length<2) return '<div class="none">Ajalugu tekib, kui kontrolle on rohkem.</div>';
+  const W=460,H=h||96,P=24;
+  const xs=pts.map(p=>p.t.getTime()), vs=pts.map(p=>p.v);
+  const xmin=Math.min(...xs),xmax=Math.max(...xs);
+  let vmin=Math.min(...vs),vmax=Math.max(...vs); if(vmin===vmax){vmin-=1;vmax+=1;}
+  const sx=t=>P+(W-2*P)*((t-xmin)/((xmax-xmin)||1));
+  const sy=v=>H-P-(H-2*P)*((v-vmin)/((vmax-vmin)||1));
+  const fmt = t => t.toLocaleDateString("et-EE", {day:"2-digit", month:"2-digit"});
+  const paths = series.map(s=>{
+    const p=s.points.filter(x=>x.v!=null);
+    if(!p.length) return "";
+    const d=p.map((x,i)=>(i?"L":"M")+sx(x.t.getTime()).toFixed(1)+" "+sy(x.v).toFixed(1)).join(" ");
+    // dot at every point + a larger transparent hover target carrying the value
+    const dots=p.map(x=>{
+      const cx=sx(x.t.getTime()).toFixed(1), cy=sy(x.v).toFixed(1);
+      const tip=`${fmt(x.t)} · ${s.name}: ${EUR(x.v)}`;
+      return `<circle cx="${cx}" cy="${cy}" r="2.5" fill="${s.color}"/>`
+        + `<circle cx="${cx}" cy="${cy}" r="11" fill="transparent" data-tip="${tip}" style="cursor:pointer">`
+        + `<title>${tip}</title></circle>`;
+    }).join("");
+    return `<path d="${d}" fill="none" stroke="${s.color}" stroke-width="2"/>${dots}`;
+  }).join("");
+  // legend shows the CURRENT (latest) value per series, so it's readable without hover
+  const legend = series.map(s=>{
+    const p=s.points.filter(x=>x.v!=null);
+    const cur = p.length ? EUR(p[p.length-1].v) : "–";
+    return `<span style="color:${s.color};font-weight:600;margin-right:14px">■ ${s.name}: ${cur}</span>`;
+  }).join("");
+  // a few horizontal gridlines with EUR labels for scale
+  const ticks=[vmax,(vmax+vmin)/2,vmin].map(v=>{
+    const y=sy(v).toFixed(1);
+    return `<line x1="${P}" y1="${y}" x2="${W-4}" y2="${y}" stroke="var(--line)" stroke-width="0.5"/>`
+      + `<text x="2" y="${(+y+3).toFixed(1)}">${EUR(v)}</text>`;
+  }).join("");
+  return `<div style="font-size:12px;margin:6px 0 2px">${legend}</div>
+    <svg viewBox="0 0 ${W} ${H}" width="100%" style="height:auto;overflow:visible">
+      ${ticks}${paths}
+    </svg>`;
+}
+const C_CHEAP="#3fb950", C_PREF="#58a6ff";
+
+function changeRow(st){
+  if(st.price_change_eur==null || st.price_change_eur===0){
+    return `<div class="row"><span class="k">Muutus algusest</span><span class="muted" style="font-size:13px">baasjoon</span></div>`;
+  }
+  const cls = st.price_change_eur<0 ? "down":"up", a = st.price_change_eur<0?"▼":"▲";
+  const base = st.baseline_preferred_price_eur!=null ? ` <small class="muted">algus ${EUR(st.baseline_preferred_price_eur)}</small>` : "";
+  return `<div class="row"><span class="k">Muutus algusest</span>
+    <span class="v ${cls}">${a} ${EUR(Math.abs(st.price_change_eur))} (${st.price_change_percent}%)${base}</span></div>`;
+}
+
+async function legHtml(st, routeId, dirName){
+  const tr = await j(`/api/routes/${routeId}/trend?days=60`);
+  const series = [
+    {name:"Odavaim", color:C_CHEAP, points: tr.points.map(p=>({t:new Date(p.date), v:p.cheapest_eur}))},
+    {name:"Mugav", color:C_PREF, points: tr.points.map(p=>({t:new Date(p.date), v:p.preferred_eur}))},
+  ];
+  const warn = st.limited_low_fare_inventory ? `<span class="badge b-warn" title="${st.limited_reason||''}">⚠︎ vähe kohti</span>` : "";
+  const conv = st.best_preferred_price_eur!=null
+    ? `<div class="row"><span class="k">Mugav aeg</span><span class="v">${EUR(st.best_preferred_price_eur)}
+        <small>${st.best_preferred_flight} ${st.best_preferred_departure}→${st.best_preferred_arrival}</small></span></div>${changeRow(st)}`
+    : `<div class="row"><span class="k">Mugav aeg</span><span class="none">aknas pole lendu</span></div>`;
+  return `<div class="leg">
+    <h3>${st.route} <span class="muted">${st.date}</span> ${warn}</h3>
+    ${conv}
+    <div class="row"><span class="k">Päeva odavaim</span><span class="v">${EUR(st.cheapest_family_price_eur)}
+      <small>${st.cheapest_flight||''} ${st.cheapest_departure||''}</small></span></div>
+    <div class="row"><span class="k muted">THB</span><span class="muted">${THB(st.cheapest_family_price_thb)}</span></div>
+    ${chart(series)}
+  </div>`;
+}
+
+async function tripHtml(s){
+  const err = s.scraper_status!=="ok";
+  const status = err ? '<span class="badge b-err">viga</span>' : '<span class="badge b-ok">ok</span>';
+  const legs = await Promise.all([
+    legHtml(s.outbound, s.outbound_route_id, "Sinna"),
+    legHtml(s.inbound, s.return_route_id, "Tagasi"),
+  ]);
+  const tr = await j(`/api/trips/${s.trip_id}/trend?days=60`);
+  const totalChart = chart([
+    {name:"Kokku odavaim", color:C_CHEAP, points: tr.points.map(p=>({t:new Date(p.date), v:p.total_cheapest_eur}))},
+    {name:"Kokku mugav", color:C_PREF, points: tr.points.map(p=>({t:new Date(p.date), v:p.total_preferred_eur}))},
+  ], 120);
+  const alertHit = s.alert_total_eur && s.total_preferred_eur!=null && s.total_preferred_eur<=s.alert_total_eur;
+  return `<div class="card">
+    <div class="rt"><h2>${s.name}</h2><div>${status}</div></div>
+    <div class="total">
+      <div><div class="lbl">Kokku edasi-tagasi · mugav</div>
+        <div class="big ${alertHit?'down':''}">${EUR(s.total_preferred_eur)}</div>
+        <div class="sub">${s.total_preferred_thb?THB(s.total_preferred_thb):'mõlemas suunas pole aknas lendu'}${s.alert_total_eur?` · lävi ${EUR(s.alert_total_eur)}`:''}</div></div>
+      <div><div class="lbl">Kokku · odavaim</div>
+        <div class="big">${EUR(s.total_cheapest_eur)}</div>
+        <div class="sub">${THB(s.total_cheapest_thb)}</div></div>
+    </div>
+    <div class="legs">${legs.join("")}</div>
+    <div class="leg" style="margin-top:16px">
+      <h3>Kokku edasi-tagasi</h3>
+      ${totalChart}
+    </div>
+    <div class="sub" style="margin-top:12px">viimane kontroll: ${s.checked_at?new Date(s.checked_at).toLocaleString("et-EE"):'–'}</div>
+  </div>`;
+}
+
+async function load(){
+  const trips = await j("/api/trips");
+  const anyErr = trips.some(t=>t.scraper_status!=="ok");
+  const sc=document.getElementById("scraper");
+  sc.textContent = anyErr?"scraper: viga":"scraper: ok";
+  sc.className="badge "+(anyErr?"b-err":"b-ok");
+  document.getElementById("trips").innerHTML = (await Promise.all(trips.map(tripHtml))).join("");
+}
+
+document.getElementById("refresh").addEventListener("click", async e=>{
+  e.target.disabled=true; e.target.textContent="Kontrollin…";
+  try{ await fetch("/api/refresh",{method:"POST",headers:{"Content-Type":"application/json"},body:"{}"});}catch(_){}
+  let n=0; const iv=setInterval(async()=>{ await load(); if(++n>=6){clearInterval(iv);
+    e.target.disabled=false; e.target.textContent="Värskenda kohe";}},10000);
+});
+
+load(); setInterval(load, 60000);
+</script>
+</body>
+</html>

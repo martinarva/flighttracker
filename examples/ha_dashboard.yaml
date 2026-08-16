@@ -1,0 +1,107 @@
+# flightwatcher — Home Assistant dashboard (built-in cards only, no HACS needed).
+# For the prettier version see ha_dashboard_mushroom.yaml (needs Mushroom + ApexCharts).
+# Paste: Settings → Dashboards → + Add → ⋮ → Raw configuration editor → paste → Save.
+# Entity_ids below are the REAL ones HA generated (read from the entity registry).
+
+title: Lennud
+views:
+  - title: Koh Samui 2027
+    path: samui-2027
+    icon: mdi:airplane
+    cards:
+      - type: glance
+        title: Koh Samui – veebruar 2027 · edasi-tagasi kokku
+        columns: 3
+        state_color: true
+        entities:
+          - entity: sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient
+            name: Mugav aeg
+          - entity: sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_cheapest
+            name: Odavaim
+          - entity: binary_sensor.bangkok_airways_watcher_scraper_ok
+            name: Scraper
+
+      - type: entities
+        title: BKK → USM (sinna, 23.02.2027)
+        show_header_toggle: false
+        entities:
+          - entity: sensor.bangkok_airways_bkk_usm_preferred_price
+            name: Mugav hind
+            secondary_info: last-updated
+          - entity: sensor.bangkok_airways_bkk_usm_preferred_flight
+            name: Mugav lend
+          - entity: sensor.bangkok_airways_bkk_usm_preferred_departure
+            name: Mugav väljumine
+          - type: divider
+          - entity: sensor.bangkok_airways_bkk_usm_cheapest_price
+            name: Päeva odavaim
+          - entity: sensor.bangkok_airways_watcher_bkk_usm_cheapest_flight
+            name: Odavaim lend
+          - entity: sensor.bangkok_airways_watcher_bkk_usm_cheapest_departure
+            name: Odavaim väljumine
+          - type: divider
+          - entity: sensor.bangkok_airways_bkk_usm_price_change
+            name: Muutus algusest
+          - entity: binary_sensor.bangkok_airways_bkk_usm_low_fare_limited
+            name: Odav klass piiratud
+
+      - type: entities
+        title: USM → BKK (tagasi, 06.03.2027)
+        show_header_toggle: false
+        entities:
+          - entity: sensor.bangkok_airways_usm_bkk_preferred_price
+            name: Mugav hind
+            secondary_info: last-updated
+          - entity: sensor.bangkok_airways_usm_bkk_preferred_flight
+            name: Mugav lend
+          - entity: sensor.bangkok_airways_usm_bkk_preferred_departure
+            name: Mugav väljumine
+          - type: divider
+          - entity: sensor.bangkok_airways_usm_bkk_cheapest_price
+            name: Päeva odavaim
+          - entity: sensor.bangkok_airways_watcher_usm_bkk_cheapest_flight
+            name: Odavaim lend
+          - entity: sensor.bangkok_airways_watcher_usm_bkk_cheapest_departure
+            name: Odavaim väljumine
+          - type: divider
+          - entity: sensor.bangkok_airways_usm_bkk_price_change
+            name: Muutus algusest
+          - entity: binary_sensor.bangkok_airways_usm_bkk_low_fare_limited
+            name: Odav klass piiratud
+
+      - type: history-graph
+        title: Kokku edasi-tagasi (EUR)
+        hours_to_show: 720
+        entities:
+          - entity: sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient
+            name: Mugav
+          - entity: sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_cheapest
+            name: Odavaim
+
+      - type: history-graph
+        title: BKK → USM (EUR)
+        hours_to_show: 720
+        entities:
+          - entity: sensor.bangkok_airways_bkk_usm_preferred_price
+            name: Mugav
+          - entity: sensor.bangkok_airways_bkk_usm_cheapest_price
+            name: Odavaim
+
+      - type: history-graph
+        title: USM → BKK (EUR)
+        hours_to_show: 720
+        entities:
+          - entity: sensor.bangkok_airways_usm_bkk_preferred_price
+            name: Mugav
+          - entity: sensor.bangkok_airways_usm_bkk_cheapest_price
+            name: Odavaim
+
+      - type: entities
+        title: Süsteem
+        entities:
+          - entity: binary_sensor.bangkok_airways_watcher_scraper_ok
+            name: Scraper
+          - entity: sensor.bangkok_airways_watcher_last_successful_check
+            name: Viimane edukas kontroll
+          - entity: sensor.bangkok_airways_watcher_last_campaign
+            name: Viimane kampaania

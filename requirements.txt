@@ -1,0 +1,13 @@
+# Core (Etapp 2+). Pinned loosely; tighten when Dockerising (Etapp 8).
+playwright>=1.44          # base browser automation
+patchright>=1.40          # drop-in Playwright that passes the site's Imperva bot check
+fastapi>=0.110            # REST API (Etapp 4)
+uvicorn[standard]>=0.29   # ASGI server
+paho-mqtt>=2.0            # MQTT + HA discovery (Etapp 5)
+APScheduler>=3.10         # daily cron with jitter (Etapp 6)
+PyYAML>=6.0               # config.yaml
+python-dotenv>=1.0        # .env secrets
+# SQLite is stdlib (sqlite3) — no dependency needed.
+
+# Dev/test
+pytest>=8.0

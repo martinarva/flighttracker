@@ -1,0 +1,143 @@
+# flightwatcher — Mushroom dashboard (needs HACS → "Mushroom" + "ApexCharts Card")
+# Paste: Settings → Dashboards → + Add → ⋮ → Raw configuration editor → paste → Save.
+# Entity_ids below are the REAL ones HA generated (read from the entity registry).
+
+title: Lennud
+views:
+  - title: Koh Samui 2027
+    path: samui-2027
+    icon: mdi:airplane
+    type: sections
+    max_columns: 2
+    sections:
+      # ---------- Kokku edasi-tagasi ----------
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            title: Koh Samui – veebruar 2027
+            subtitle: Edasi-tagasi, pere 2+2
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: entity
+                entity: binary_sensor.bangkok_airways_watcher_scraper_ok
+                icon: mdi:radar
+                content_info: name
+              - type: entity
+                entity: sensor.bangkok_airways_watcher_last_successful_check
+                icon: mdi:clock-check-outline
+              - type: entity
+                entity: sensor.bangkok_airways_watcher_last_campaign
+                icon: mdi:sale
+          - type: horizontal-stack
+            cards:
+              - type: custom:mushroom-template-card
+                primary: "{{ states('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient') }} €"
+                secondary: Kokku · mugav
+                icon: mdi:cash-multiple
+                icon_color: >-
+                  {{ 'green' if states('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient')|float(999) <= 620 else 'blue' }}
+                multiline_secondary: true
+              - type: custom:mushroom-template-card
+                primary: "{{ states('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_cheapest') }} €"
+                secondary: Kokku · odavaim
+                icon: mdi:cash
+                icon_color: grey
+
+      # ---------- BKK → USM ----------
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            subtitle: BKK → USM (sinna · 23.02.2027)
+          - type: custom:mushroom-template-card
+            primary: >-
+              {{ states('sensor.bangkok_airways_bkk_usm_preferred_price') }} € ·
+              {{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','flight_number') }}
+            secondary: >-
+              Mugav {{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','departure') }}→{{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','arrival') }}
+              · {{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','fare_name') }}
+            icon: mdi:airplane-clock
+            icon_color: >-
+              {{ 'green' if states('sensor.bangkok_airways_bkk_usm_preferred_price')|float(999) <= 320 else 'blue' }}
+            multiline_secondary: true
+          - type: custom:mushroom-template-card
+            primary: >-
+              {{ states('sensor.bangkok_airways_bkk_usm_cheapest_price') }} € ·
+              {{ states('sensor.bangkok_airways_watcher_bkk_usm_cheapest_flight') }}
+            secondary: >-
+              Päeva odavaim · väljub {{ states('sensor.bangkok_airways_watcher_bkk_usm_cheapest_departure') }}
+            icon: mdi:airplane
+            icon_color: grey
+            multiline_secondary: true
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: entity
+                entity: sensor.bangkok_airways_bkk_usm_price_change
+                icon: mdi:swap-vertical
+              - type: entity
+                entity: binary_sensor.bangkok_airways_bkk_usm_low_fare_limited
+                icon: mdi:seat-passenger
+
+      # ---------- USM → BKK ----------
+      - type: grid
+        cards:
+          - type: custom:mushroom-title-card
+            subtitle: USM → BKK (tagasi · 06.03.2027)
+          - type: custom:mushroom-template-card
+            primary: >-
+              {{ states('sensor.bangkok_airways_usm_bkk_preferred_price') }} € ·
+              {{ state_attr('sensor.bangkok_airways_usm_bkk_preferred_price','flight_number') }}
+            secondary: >-
+              Mugav {{ state_attr('sensor.bangkok_airways_usm_bkk_preferred_price','departure') }}→{{ state_attr('sensor.bangkok_airways_usm_bkk_preferred_price','arrival') }}
+              · {{ state_attr('sensor.bangkok_airways_usm_bkk_preferred_price','fare_name') }}
+            icon: mdi:airplane-clock
+            icon_color: >-
+              {{ 'green' if states('sensor.bangkok_airways_usm_bkk_preferred_price')|float(999) <= 320 else 'blue' }}
+            multiline_secondary: true
+          - type: custom:mushroom-template-card
+            primary: >-
+              {{ states('sensor.bangkok_airways_usm_bkk_cheapest_price') }} € ·
+              {{ states('sensor.bangkok_airways_watcher_usm_bkk_cheapest_flight') }}
+            secondary: >-
+              Päeva odavaim · väljub {{ states('sensor.bangkok_airways_watcher_usm_bkk_cheapest_departure') }}
+            icon: mdi:airplane
+            icon_color: grey
+            multiline_secondary: true
+          - type: custom:mushroom-chips-card
+            chips:
+              - type: entity
+                entity: sensor.bangkok_airways_usm_bkk_price_change
+                icon: mdi:swap-vertical
+              - type: entity
+                entity: binary_sensor.bangkok_airways_usm_bkk_low_fare_limited
+                icon: mdi:seat-passenger
+
+      # ---------- Hinnaajalugu (ApexCharts) ----------
+      - type: grid
+        column_span: 2
+        cards:
+          - type: custom:apexcharts-card
+            header: { show: true, title: "Kokku edasi-tagasi (EUR)" }
+            graph_span: 60d
+            span: { end: day }
+            series:
+              - entity: sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient
+                name: Mugav
+                stroke_width: 3
+              - entity: sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_cheapest
+                name: Odavaim
+                opacity: 0.6
+          - type: custom:apexcharts-card
+            header: { show: true, title: "Suunad (EUR)" }
+            graph_span: 60d
+            span: { end: day }
+            series:
+              - entity: sensor.bangkok_airways_bkk_usm_preferred_price
+                name: BKK→USM mugav
+              - entity: sensor.bangkok_airways_bkk_usm_cheapest_price
+                name: BKK→USM odavaim
+                opacity: 0.5
+              - entity: sensor.bangkok_airways_usm_bkk_preferred_price
+                name: USM→BKK mugav
+              - entity: sensor.bangkok_airways_usm_bkk_cheapest_price
+                name: USM→BKK odavaim
+                opacity: 0.5

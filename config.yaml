@@ -1,0 +1,66 @@
+# Flightwatcher configuration. Everything route-, price- and schedule-related lives
+# here so adding a 3rd route or changing a threshold never needs a code change.
+# Secrets (MQTT password etc.) do NOT belong here — use .env (see .env.example).
+
+currency:
+  # EUR per 1 THB. DB always stores THB; EUR is derived for display.
+  thb_to_eur: 0.026
+  # Optional: later, read the live rate from a Home Assistant sensor instead.
+  # ha_sensor: sensor.thb_eur_rate
+
+passengers:
+  adults: 2
+  children: 2      # ages handled by the airline as CHD (2-11 on travel date)
+  infants: 0
+
+# A "trip" is one round-trip search (searched as round-trip because Bangkok Airways
+# prices a round trip ~200 THB/leg cheaper than two one-ways — verified live).
+# Each leg still gets its own sensors/window/threshold in Home Assistant, plus a
+# combined round-trip TOTAL. Leg route_ids are derived: {origin}_{dest} lowercased
+# -> bkk_usm and usm_bkk. Add a 2nd trip the same way.
+trips:
+  - id: samui_feb_2027
+    name: "Koh Samui – veebruar 2027"
+    origin: BKK
+    destination: USM
+    outbound_date: 2027-02-23
+    return_date: 2027-03-06
+    # "Convenient" = cheapest flight departing in this window. The all-day cheapest
+    # (incl. early 06:00 and afternoon) is always shown separately so you can decide.
+    outbound:
+      window: { from: "10:00", to: "13:00" }
+      alert_eur: 320
+    return:
+      window: { from: "10:00", to: "15:00" }
+      alert_eur: 320
+    alert_total_eur: 620            # notify when the whole round trip (both legs) <= this
+    price_drop_percent: 15          # also notify on a >=15% drop vs last successful check
+
+# Check at Bangkok Airways' HOME (Thai) business times — that's when Thai revenue
+# management and marketing move prices/campaigns. Scheduler runs in Asia/Bangkok so
+# these stay put year-round (no EU DST drift). Jitter keeps us off the exact minute.
+scheduler:
+  timezone: Asia/Bangkok
+  cron: "30 11,17 * * *"           # ~11:30 (after morning campaign launches) & 17:30 (end of Thai workday) ICT
+  jitter_seconds: 300
+
+promotions:
+  enabled: true
+  cron: "0 12 * * *"               # Thai midday — fresh campaigns; a new one triggers an immediate price re-check
+  keywords: [Samui, "Koh Samui", USM, Bangkok, BKK]
+  urls:
+    - https://www.bangkokair.com/eng/deal-offers
+    - https://www.bangkokair.com/eng/flightdeals
+
+scraper:
+  # Price source:
+  #  "bangkok_airways" = direct scrape of the airline site (default). Richest data:
+  #     exact web price + fare family + seats-left (fare bucket). Uses patchright
+  #     (headful under Xvfb) to pass the site's Imperva bot check. Verified working.
+  #  "serpapi" = Google Flights via SerpAPI (needs SERPAPI_KEY; no fare-family/seats).
+  #     A sanctioned fallback if the direct scrape ever stops working.
+  # Override with the FW_PROVIDER env var.
+  provider: bangkok_airways
+  headless: true
+  timeout_seconds: 60
+  max_debug_snapshots: 10

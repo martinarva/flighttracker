@@ -1,0 +1,127 @@
+# flightwatcher — Home Assistant automations (notifications)
+# Entity_ids below are the REAL ones HA generated (read from the entity registry).
+#
+# HOW TO USE:
+#  1) Replace  notify.mobile_app_your_phone  everywhere with YOUR notify service
+#     (Developer Tools → Actions → type "notify." to see yours). No mobile app?
+#     Swap it for:  - action: persistent_notification.create
+#                     data: { title: "...", message: "..." }
+#  2) Paste into automations.yaml (or Settings → Automations → ⋮ → Edit in YAML).
+#     Thresholds mirror config.yaml — tweak freely.
+#
+# NB: the price sensors are ..._preferred_price / ..._cheapest_price, and the rich
+# attributes (flight_number, departure, arrival, fare_name, baseline_price_eur,
+# change_percent) live on the ..._preferred_price sensor.
+
+# 1) BKK → USM good price at a convenient time (<= 320 €)
+- alias: "PG BKK-USM hea hind (mugav)"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.bangkok_airways_bkk_usm_preferred_price
+      below: 320.01
+  action:
+    - action: notify.mobile_app_your_phone
+      data:
+        title: "✈️ Bangkok → Koh Samui hea hind"
+        message: >
+          {{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','flight_number') }}
+          {{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','departure') }}→{{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','arrival') }}
+          · {{ states('sensor.bangkok_airways_bkk_usm_preferred_price') }} €
+          ({{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','fare_name') }};
+          algus {{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','baseline_price_eur') }} €,
+          {{ state_attr('sensor.bangkok_airways_bkk_usm_preferred_price','change_percent') }}%)
+
+# 2) USM → BKK good price at a convenient time (<= 320 €)
+- alias: "PG USM-BKK hea hind (mugav)"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.bangkok_airways_usm_bkk_preferred_price
+      below: 320.01
+  action:
+    - action: notify.mobile_app_your_phone
+      data:
+        title: "✈️ Koh Samui → Bangkok hea hind"
+        message: >
+          {{ state_attr('sensor.bangkok_airways_usm_bkk_preferred_price','flight_number') }}
+          {{ state_attr('sensor.bangkok_airways_usm_bkk_preferred_price','departure') }}
+          · {{ states('sensor.bangkok_airways_usm_bkk_preferred_price') }} €
+
+# 3) Whole round trip under the total threshold (<= 620 €) — the number you pay
+- alias: "PG edasi-tagasi kokku hea hind"
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient
+      below: 620.01
+  action:
+    - action: notify.mobile_app_your_phone
+      data:
+        title: "🎯 Koh Samui edasi-tagasi hea hind"
+        message: >
+          Kokku {{ states('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient') }} € ·
+          sinna {{ state_attr('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient','outbound_flight') }}
+          {{ state_attr('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient','outbound_departure') }},
+          tagasi {{ state_attr('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient','return_flight') }}
+          {{ state_attr('sensor.bangkok_airways_koh_samui_veebruar_2027_round_trip_total_convenient','return_departure') }}
+
+# 4) Price DROP >= 15% vs the tracking baseline (fires even above 320 €)
+- alias: "PG hinnalangus >=15% (algusest)"
+  trigger:
+    - platform: state
+      entity_id:
+        - sensor.bangkok_airways_bkk_usm_preferred_price
+        - sensor.bangkok_airways_usm_bkk_preferred_price
+  condition:
+    - condition: template
+      value_template: >
+        {{ (state_attr(trigger.entity_id, 'change_percent') | float(0)) <= -15 }}
+  action:
+    - action: notify.mobile_app_your_phone
+      data:
+        title: "📉 Bangkok Airways hinnalangus"
+        message: >
+          {{ trigger.to_state.attributes.flight_number }} langes
+          {{ state_attr(trigger.entity_id,'change_percent') }}% →
+          {{ states(trigger.entity_id) }} €
+          (algus {{ state_attr(trigger.entity_id,'baseline_price_eur') }} €)
+
+# 5) Cheap fare bucket may be running out
+- alias: "PG odava klassi kohti vähe"
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.bangkok_airways_bkk_usm_low_fare_limited
+        - binary_sensor.bangkok_airways_usm_bkk_low_fare_limited
+      to: "on"
+  action:
+    - action: notify.mobile_app_your_phone
+      data:
+        title: "⚠️ Bangkok Airways odava klassi kohti võib olla vähe"
+        message: >
+          {{ trigger.to_state.name }}: {{ state_attr(trigger.entity_id,'reason') }}
+
+# 6) New relevant campaign found -> prices were auto re-checked
+- alias: "PG uus kampaania (Koh Samui)"
+  trigger:
+    - platform: mqtt
+      topic: flightwatcher/campaigns/event
+  action:
+    - action: notify.mobile_app_your_phone
+      data:
+        title: "🔥 Bangkok Airways uus kampaania"
+        message: >
+          {{ trigger.payload_json.name }} — {{ trigger.payload_json.url }}
+
+# 7) Scraper has been failing for 6h (data going stale) — optional health alert
+- alias: "PG scraper maas 6h"
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.bangkok_airways_watcher_scraper_ok
+      to: "off"
+      for: { hours: 6 }
+  action:
+    - action: notify.mobile_app_your_phone
+      data:
+        title: "🛑 Bangkok Airways scraper maas"
+        message: >
+          Viimane edukas kontroll:
+          {{ states('sensor.bangkok_airways_watcher_last_successful_check') }}

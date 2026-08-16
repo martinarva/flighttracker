@@ -1,0 +1,23 @@
+# flightwatcher — runs alongside your Home Assistant stack.
+# Pick a free host port with FW_PORT in .env (default 8080), e.g. FW_PORT=8137.
+services:
+  flightwatcher:
+    build: .
+    image: flightwatcher:latest
+    container_name: flightwatcher
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${FW_PORT:-8080}:8080"       # http://<server>:<FW_PORT>  -> dashboard + API
+    volumes:
+      - ./data:/app/data              # SQLite DB + debug snapshots persist here
+      - ./config.yaml:/app/config.yaml:ro
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://127.0.0.1:8080/health').getcode()==200 else 1)"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    # No privileged mode / extra caps needed: Chromium runs with --no-sandbox.
+    # If you ever see /dev/shm crashes under heavy pages, uncomment:
+    # shm_size: "512m"
