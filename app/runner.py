@@ -83,6 +83,14 @@ class Runner:
         summary = build_trip_summary(self.cfg, trip)
         if self.publisher:
             try:
+                # Re-assert discovery on every refresh, not only on (re)connect. If the
+                # broker ever loses its retained discovery configs while we stay
+                # connected — e.g. an unclean host reboot that flushes mosquitto's
+                # persistence without dropping our socket — the HA entities would show
+                # "unknown" until the next reconnect. Republishing here (idempotent,
+                # retained) restores them within one scrape cycle. This is what HA's own
+                # integrations do.
+                self.publisher.publish_discovery()
                 self.publisher.publish_state(summary.outbound)
                 self.publisher.publish_state(summary.inbound)
                 self.publisher.publish_trip_summary(summary)
