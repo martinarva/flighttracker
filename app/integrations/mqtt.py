@@ -43,11 +43,48 @@ class MqttPublisher:
             client.username_pw_set(self.mqtt.username, self.mqtt.password)
         # LWT: broker marks us offline if the connection drops unexpectedly.
         client.will_set(self._avail, "offline", qos=1, retain=True)
-        client.connect(self.mqtt.host, self.mqtt.port, keepalive=60)
-        client.loop_start()
-        client.publish(self._avail, "online", qos=1, retain=True)
+        client.on_connect = self._on_connect
+        client.on_disconnect = self._on_disconnect
+        client.reconnect_delay_set(min_delay=1, max_delay=120)
         self._client = client
+        # connect_async + loop_start: paho keeps (re)trying on its own, so the app
+        # survives the broker being down at startup OR restarting later. All the
+        # (re)publishing lives in _on_connect, so every (re)connect self-heals.
+        client.connect_async(self.mqtt.host, self.mqtt.port, keepalive=60)
+        client.loop_start()
+        log.info("MQTT connecting to %s:%s (async, auto-reconnect on)",
+                 self.mqtt.host, self.mqtt.port)
+
+    def _on_connect(self, client, userdata, flags, reason_code, properties=None) -> None:
+        rc = getattr(reason_code, "value", reason_code)
+        if rc != 0:
+            log.warning("MQTT connection refused (%s); paho will retry", reason_code)
+            return
         log.info("MQTT connected to %s:%s", self.mqtt.host, self.mqtt.port)
+        # Re-assert online + discovery + last-known state on EVERY (re)connect. This
+        # is what makes a broker restart self-heal: the retained LWT "offline" is
+        # overwritten, and if the broker ever lost persistence the discovery/state
+        # configs are restored too — no container restart needed.
+        client.publish(self._avail, "online", qos=1, retain=True)
+        try:
+            self.republish_all()
+        except Exception:
+            log.exception("MQTT re-publish on connect failed")
+
+    def _on_disconnect(self, client, userdata, disconnect_flags=None,
+                       reason_code=None, properties=None) -> None:
+        log.warning("MQTT disconnected (%s); paho auto-reconnecting", reason_code)
+
+    def republish_all(self) -> None:
+        """(Re)publish discovery + every route/trip's last-known state from the DB.
+        Idempotent (everything retained), so it's safe to run on each connect."""
+        from app.services.persistence import build_trip_summary
+        self.publish_discovery()
+        for t in self.cfg.trips:
+            s = build_trip_summary(self.cfg, t)
+            self.publish_state(s.outbound)
+            self.publish_state(s.inbound)
+            self.publish_trip_summary(s)
 
     def _publish(self, topic: str, payload, retain: bool = True) -> None:
         if self._client is None:

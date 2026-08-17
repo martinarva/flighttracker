@@ -55,18 +55,9 @@ def create_app(cfg: Optional[Config] = None, runner: Optional[Runner] = None,
             sched.start()
             scheduler_holder["sched"] = sched
             log.info("Scheduler started: %s (%s)", cfg.scheduler.cron, cfg.scheduler.timezone)
-        # Publish HA discovery + last-known state at startup so entities appear.
-        if publisher is not None:
-            try:
-                publisher.publish_discovery(cfg)
-                from app.services.persistence import build_trip_summary
-                for t in cfg.trips:
-                    s = build_trip_summary(cfg, t)
-                    publisher.publish_state(s.outbound)
-                    publisher.publish_state(s.inbound)
-                    publisher.publish_trip_summary(s)
-            except Exception:
-                log.exception("startup publish failed")
+        # HA discovery + last-known state are (re)published by the MQTT on_connect
+        # callback — on the initial connect AND on every reconnect — so a broker
+        # restart self-heals. Nothing to publish here.
         yield
         s = scheduler_holder.get("sched")
         if s:

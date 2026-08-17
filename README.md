@@ -174,8 +174,10 @@ never blanked while a previous good value exists.
 
 ## Troubleshooting
 
-- **Sensors "unavailable":** the MQTT availability topic is `offline`. Usually a restart
-  fixes it (`docker compose restart`); the container publishes `online` on startup.
+- **Sensors "unavailable":** the MQTT availability topic is `offline`. The app
+  auto-reconnects and re-asserts `online` + discovery + state on every (re)connect, so a
+  broker restart self-heals within ~1s. If it stays unavailable, the app can't reach the
+  broker at all — check `MQTT_HOST`/credentials in `.env` and that the broker is up.
 - **Scrapes fail with "Missing X server / Target closed":** the virtual display died.
   The entrypoint supervises Xvfb (restarts it, clears stale locks) — a rebuild
   (`up -d --build`) gives a clean start.

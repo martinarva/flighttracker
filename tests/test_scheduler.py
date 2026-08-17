@@ -19,10 +19,12 @@ def test_builds_price_check_job():
         ids = {j.id for j in sched.get_jobs()}
         assert "price_check" in ids
         job = sched.get_job("price_check")
-        # jitter honoured, cron minute = 15 (from "15 8 * * *")
+        # Trigger reflects the configured cron + jitter (derive expected values from
+        # config so this stays correct if the schedule changes).
+        minute, hour = cfg.scheduler.cron.split()[:2]
         assert job.trigger.jitter == cfg.scheduler.jitter_seconds
-        assert "minute='15'" in str(job.trigger)
-        assert "hour='8'" in str(job.trigger)
+        assert f"minute='{minute}'" in str(job.trigger)
+        assert f"hour='{hour}'" in str(job.trigger)
     finally:
         sched.shutdown(wait=False)
 
